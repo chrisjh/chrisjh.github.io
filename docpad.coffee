@@ -2,6 +2,16 @@
 # It is simply a CoffeeScript Object which is parsed by CSON
 docpadConfig = {
 
+  # Plugins configurations
+  plugins:
+    ghpages:
+      deployRemote: 'origin'
+      deployBranch: 'master'
+      environment: 'static'
+    navlinks:
+      collections:
+        posts: -1
+
 	# =================================
 	# Template Data
 	# These are variables that will be accessible via our templates
@@ -10,49 +20,50 @@ docpadConfig = {
 	templateData:
 
 		# Specify some site properties
-		site:
+		site: {
+
+      services:
+        twitterTweetButton: ''
+        googleAnalytics: ''
+
+
 			# The production url of our website
-			url: "http://website.com"
+			url: "http://chrisjh.github.io"
 
 			# Here are some old site urls that you would like to redirect from
-			oldUrls: [
-				'www.website.com',
-				'website.herokuapp.com'
-			]
+			oldUrls: []
 
 			# The default title of our website
-			title: "Your Website"
+			title: "Chris Hendel's Blog"
 
 			# The website description (for SEO)
 			description: """
-				When your website appears in search results in say Google, the text here will be shown underneath your website's title.
+        Thought snippets on life and tech.
 				"""
 
 			# The website keywords (for SEO) separated by commas
 			keywords: """
-				place, your, website, keywoards, here, keep, them, related, to, the, content, of, your, website
+				chris hendel, blog, opensource, javascript, unc, linux, tutorial, thoughts, code, programming
 				"""
 
 			# The website author's name
-			author: "Your Name"
+			author: "Chris Hendel"
 
 			# The website author's email
-			email: "your@email.com"
+			email: "chrisjh007@gmail.com"
 
 			# Styles
 			styles: [
 				"http://yui.yahooapis.com/pure/0.2.0/pure-min.css"
-				"styles/style.css"
+        "http://fonts.googleapis.com/css?family=Open+Sans"
+				"/styles/style.css"
+				"/styles/idea.css"
 			]
 
-			# Scripts
-			scripts: [
-				"scripts/script.js"
-			]
+    }
 
 
-
-		# -----------------------------
+  # -----------------------------
 		# Helper Functions
 
 		# Get the prepared site/document title
@@ -74,21 +85,20 @@ docpadConfig = {
 		# Get the prepared site/document keywords
 		getPreparedKeywords: ->
 			# Merge the document keywords with the site keywords
-			@site.keywords.concat(@document.keywords or []).join(', ')
-
+			return @site.keywords.concat(@document.keywords or []).join(', ')
 
 	# =================================
 	# Collections
 	# These are special collections that our website makes available to us
 
 	collections:
-		pages: (database) ->
-			database.findAllLive({pageOrder: $exists: true}, [pageOrder:1,title:1])
+		#pages: (database) ->
+		#	database.findAllLive({pageOrder: $exists: true}, [pageOrder:1,title:1])
 
 		posts: (database) ->
-			database.findAllLive({tags:$has:'post'}, [date:-1])
+			database.findAllLive({layout:$has:'post'}, [date:-1])
 
-	# =================================
+  # =================================
 	# DocPad Events
 
 	# Here we can define handlers for events that DocPad fires
@@ -101,22 +111,26 @@ docpadConfig = {
 			# Extract the server from the options
 			{server} = opts
 			docpad = @docpad
-
-			# As we are now running in an event,
-			# ensure we are using the latest copy of the docpad configuraiton
-			# and fetch our urls from it
-			latestConfig = docpad.getConfig()
-			oldUrls = latestConfig.templateData.site.oldUrls or []
-			newUrl = latestConfig.templateData.site.url
-
-			# Redirect any requests accessing one of our sites oldUrls to the new site url
-			server.use (req,res,next) ->
-				if req.headers.host in oldUrls
-					res.redirect(newUrl+req.url, 301)
-				else
-					next()
 }
 
 
 # Export our DocPad Configuration
 module.exports = docpadConfig
+
+
+# Convert a string to a color
+# @see http://stackoverflow.com/questions/3426404/create-a-hexadecimal-colour-based-on-a-string-with-jquery-javascript
+String::toColor = () ->
+  hash = 0
+  colour = "#"
+
+  for i in [0..this.length-1]
+    hash = this.charCodeAt(i++) + ((hash << 5) - hash)
+  for i in [0..2]
+    colour += ("00" + ((hash >> i++ * 8) & 0xFF).toString(16)).slice(-2)
+
+  return colour
+
+Date::getMonthName = () ->
+  months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+  months[this.getMonth()]

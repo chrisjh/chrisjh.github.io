@@ -3,8 +3,8 @@
 
 
 /* TEAM */
-  <your title>: <your name>
-  Site:
+  Chris Hendel
+  Site: www.chrisjh.github.io
   Twitter:
   Location:
 

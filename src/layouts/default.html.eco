@@ -44,30 +44,65 @@
 <body>
 
 <!-- Markup -->
-<div class="content pure-g-r">
-	<div class="header pure-u-1">
-		<div class="pure-menu pure-menu-open pure-menu-fixed pure-menu-horizontal">
-			<a class="pure-menu-heading" href="/">Your Site</a>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an outdated browser. <a href="http://whatbrowser.org">Upgrade your browser today</a> to better experience this site.</p>
+<![endif]-->
 
-			<ul>
-				<li class="pure-menu-selected"><a href="/">Home</a></li>
-				<li><a href="#">Tour</a></li>
-				<% for document in @getCollection('pages').toJSON(): %>
-					<li typeof="sioc:Page" about="<%= document.url %>" class="<%= 'active'  if @document.url is document.url %>">
-						<a href="<%= document.url %>" property="dc:title"><%= document.title %></a>
-					</li>
-				<% end %>
-			</ul>
-		</div>
-	</div>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar pure-u">
+        <header class="header pure-u-1">
 
-	<%- @content %>
+            <hgroup>
+                <a href="/">
+                    <h1 class="brand-title">Chris Hendel's Blog</h1>
+                    <h2 class="brand-tagline">Thought snippets on life and tech.</h2>
+                </a>
+            </hgroup>
 
-	<div class="footer pure-u-1">
-		View the source of this layout to learn more. Made with love by the YUI Team. 
-		&copy; Company <%- (new Date()).getFullYear() %>.
-		This website was last updated at <%= @site.date.toISOString() %>
-	</div>
+            <nav class="nav">
+                <ul class="">
+                    <li class="nav-item">
+                        <a class="social-icons si-github" rel="nofollow" target="_new" title="GitHub Profile" href="https://github.com/chrisjh"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-linkedin" rel="nofollow" target="_new" title="LinkedIn Profile" href="http://www.linkedin.com/pub/chris-hendel/7a/664/518"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-twitter" rel="nofollow" target="_new" title="Follow me" href="https://twitter.com/chrishendel"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="social-icons si-rss" rel="nofollow" target="_new" title="Subscribe in a reader" href="http://feeds.feedburner.com/"></a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+    <div class="content pure-u-1">
+
+        <%- @content %>
+
+        <footer class="footer">
+            <div>
+                Unless stated otherwise; all works are Copyright &copy 2013+
+                <a href="http://chrisjh.github.io/">Chris Hendel</a>
+                and licensed under the <a href="http://creativecommons.org/licenses/MIT/">MIT License</a>
+                for code and the <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
+                for everything else.
+            </div>
+
+            <div class="pure-menu pure-menu-horizontal pure-menu-open">
+                <a href="#behind-this-blog" id="behind-this-blog">Behind this blog</a>
+                <a href="#behind-this-blog-show" id="behind-this-blog-show">&nbsp;</a>
+                <ul id="behind-this-blog-list">
+                    <li><a href="http://github.com" rel="nofollow" target="_new" >Hosted by Github</a></li>
+                    <li><a href="http://docpad.org" rel="nofollow" target="_new" >Powered by Docpad</a></li>
+                    <li><a href="http://purecss.io/layouts/blog/" rel="nofollow" target="_new">Theme by Pure</a></li>
+                    <li><a href="http://simpleicons.org/" rel="nofollow" target="_new">Icons by Simple Icons</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
 </div>
 
 	<!-- Scripts -->
