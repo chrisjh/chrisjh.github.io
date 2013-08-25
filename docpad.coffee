@@ -23,8 +23,8 @@ docpadConfig = {
 		site: {
 
       services:
-        twitterTweetButton: ''
-        googleAnalytics: ''
+        twitterTweetButton: 'chrishendel'
+        googleAnalytics: 'UA-43472525-1'
 
 
 			# The production url of our website
