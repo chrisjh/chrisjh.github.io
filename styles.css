@@ -1,0 +1,28 @@
+html {
+  font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+h1 {
+  font-weight: bold;
+  margin-top: 0;
+}
+
+p {
+  font-weight: normal;
+}
+
+a {
+  color: #02A2DD;
+  text-decoration: none;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.content {
+  color: #555;
+  margin: auto;
+  text-align: center;
+}
